@@ -36,7 +36,7 @@ NUM_REPEATS = 1000
 def createModel():
   return ModelFactory.create(model_params.MODEL_PARAMS)
 
-def runLanguage():
+def runLinguist():
   model = createModel()
   model.enableInference({'predictedField': 'letter'})
 
@@ -47,11 +47,17 @@ def runLanguage():
       LOG.info("\n====== Repeat #%d =======\n", r)
 
     i = 1
-    
+    last_c = ''
+
     with open(DATA_PATH) as f:
       while True:
         c = f.read(1)
         if not c: break
+
+        if ord(c) <= 31 and ord(c) >= 127: continue
+        if last_c == ' ' and c == last_c: continue
+
+        last_c = c
 
         modelInput = {'letter': c}
         result = model.run(modelInput)
@@ -65,4 +71,4 @@ def runLanguage():
 
 if __name__ == "__main__":
   logging.basicConfig(level=logging.INFO)
-  runLanguage()
+  runLinguist()

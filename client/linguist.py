@@ -25,18 +25,18 @@
 
 """A client to create a CLA model for Linguist."""
 
+import sys
 import logging
 from nupic.frameworks.opf.modelfactory import ModelFactory
 import model_params
 
 LOG = logging.getLogger(__name__)
-DATA_PATH = "data/tiny.txt"
 NUM_REPEATS = 1000
 
 def createModel():
   return ModelFactory.create(model_params.MODEL_PARAMS)
 
-def runLinguist():
+def runLinguist(datapath):
   model = createModel()
   model.enableInference({'predictedField': 'letter'})
 
@@ -49,7 +49,7 @@ def runLinguist():
     i = 1
     last_c = ''
 
-    with open(DATA_PATH) as f:
+    with open(datapath) as f:
       while True:
         c = f.read(1)
         if not c: break
@@ -71,4 +71,9 @@ def runLinguist():
 
 if __name__ == "__main__":
   logging.basicConfig(level=logging.INFO)
-  runLinguist()
+
+  if len(sys.argv) > 1:
+    datapath = sys.argv[1]
+    runLinguist(datapath)
+  else:
+    print "Usage: python linguist.py [path/to/data.txt]"

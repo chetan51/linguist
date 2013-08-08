@@ -25,51 +25,42 @@
 
 """A client to create a CLA model for Linguist."""
 
-import csv
 import logging
-
 from nupic.frameworks.opf.modelfactory import ModelFactory
-
 import model_params
 
-_LOGGER = logging.getLogger(__name__)
-
-_DATA_PATH = "data/tiny.csv"
-
-_NUM_RECORDS = 100000
-_NUM_REPEATS = 1000
-
-
+LOG = logging.getLogger(__name__)
+DATA_PATH = "data/tiny.txt"
+NUM_REPEATS = 1000
 
 def createModel():
   return ModelFactory.create(model_params.MODEL_PARAMS)
 
-
-
 def runLanguage():
   model = createModel()
   model.enableInference({'predictedField': 'letter'})
-  for r in range(_NUM_REPEATS):
+
+  for r in range(NUM_REPEATS):
     should_print = r % 5 == 0
 
     if should_print:
-      _LOGGER.info("\n====== Repeat #%d =======\n", r)
+      LOG.info("\n====== Repeat #%d =======\n", r)
 
-    with open (_DATA_PATH) as fin:
-      reader = csv.reader(fin)
-      headers = reader.next()
-      reader.next()
-      reader.next()
-      for i, record in enumerate(reader, start=1):
-        modelInput = dict(zip(headers, record))
+    i = 1
+    
+    with open(DATA_PATH) as f:
+      while True:
+        c = f.read(1)
+        if not c: break
+
+        modelInput = {'letter': c}
         result = model.run(modelInput)
-        isLast = i == _NUM_RECORDS
+
         if should_print:
           prediction = "".join(result.inferences['multiStepBestPredictions'].values())
-          _LOGGER.info("Step %i: %s ==> %s", i, modelInput['letter'], prediction)
-        if isLast:
-          break
+          LOG.info("Step %i:\t %s ==> %s", i, modelInput['letter'], prediction)
 
+        i += 1
 
 
 if __name__ == "__main__":

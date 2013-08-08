@@ -23,7 +23,7 @@
 # http://numenta.org/licenses/
 # ----------------------------------------------------------------------
 
-"""A client to create a CLA model for language."""
+"""A client to create a CLA model for Linguist."""
 
 import csv
 import logging

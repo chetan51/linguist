@@ -26,12 +26,11 @@
 """A client to create a CLA model for Linguist."""
 
 import sys
-import logging
 from nupic.frameworks.opf.modelfactory import ModelFactory
 import model_params
 
-LOG = logging.getLogger(__name__)
 NUM_REPEATS = 1000
+PRINT_EVERY_REPEAT_N = 1
 
 def createModel():
   return ModelFactory.create(model_params.MODEL_PARAMS)
@@ -40,13 +39,13 @@ def runLinguist(datapath):
   model = createModel()
   model.enableInference({'predictedField': 'letter'})
 
+  i = 1
   for r in range(NUM_REPEATS):
-    should_print = r % 5 == 0
+    should_print = r % PRINT_EVERY_REPEAT_N == 0
 
     if should_print:
-      LOG.info("\n====== Repeat #%d =======\n", r)
+      print "\n====== Repeat #%d =======\n" % (r + 1)
 
-    i = 1
     last_c = ''
 
     with open(datapath) as f:
@@ -64,14 +63,12 @@ def runLinguist(datapath):
 
         if should_print:
           prediction = "".join(result.inferences['multiStepBestPredictions'].values())
-          LOG.info("Step %i:\t %s ==> %s", i, modelInput['letter'], prediction)
+          print "[%i]\t %s ==> %s" % (i, modelInput['letter'], prediction)
 
         i += 1
 
 
 if __name__ == "__main__":
-  logging.basicConfig(level=logging.INFO)
-
   if len(sys.argv) > 1:
     datapath = sys.argv[1]
     runLinguist(datapath)

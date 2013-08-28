@@ -1,0 +1,3 @@
+[submodule "data/nupic-texts"]
+	path = data/nupic-texts
+	url = https://github.com/jtauber/nupic-texts.git

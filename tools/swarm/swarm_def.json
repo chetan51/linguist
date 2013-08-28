@@ -1,0 +1,31 @@
+{
+  "includedFields": [
+    {
+      "fieldName": "letter", 
+      "fieldType": "string"
+    }
+  ], 
+  "streamDef": {
+    "info": "ugly_duckling", 
+    "version": 1, 
+    "streams": [
+      {
+        "info": "ugly_duckling.csv", 
+        "source": "file://linguist/ugly_duckling.csv", 
+        "columns": [
+          "*"
+        ], 
+        "last_record": 100
+      }
+    ]
+  }, 
+  "inferenceType": "MultiStep", 
+  "inferenceArgs": {
+    "predictionSteps": [
+      10
+    ], 
+    "predictedField": "letter"
+  }, 
+  "iterationCount": -1, 
+  "swarmSize": "small"
+}

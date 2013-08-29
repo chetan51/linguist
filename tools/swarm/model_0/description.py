@@ -35,7 +35,7 @@ from nupic.frameworks.opf.expdescriptionhelpers import importBaseDescription
 # the sub-experiment configuration
 config ={
   'aggregationInfo' : {'seconds': 0, 'fields': [], 'months': 0, 'days': 0, 'years': 0, 'hours': 0, 'microseconds': 0, 'weeks': 0, 'minutes': 0, 'milliseconds': 0},
-  'modelParams' : {'sensorParams': {'encoders': {'_classifierInput': {'fieldname': 'letter', 'classifierOnly': True, 'type': 'SDRCategoryEncoder', 'w': 21, 'n': 121}, u'letter': {'type': 'SDRCategoryEncoder', 'fieldname': 'letter', 'name': 'letter', 'w': 21, 'n': 121}}}, 'inferenceType': 'TemporalMultiStep', 'spParams': {'synPermInactiveDec': 0.0050000000000000001}, 'tpParams': {'minThreshold': 9, 'activationThreshold': 12, 'pamLength': 1}, 'clParams': {'alpha': 0.0001}},
+  'modelParams' : {'sensorParams': {'encoders': {'_classifierInput': {'fieldname': 'letter', 'classifierOnly': True, 'type': 'SDRCategoryEncoder', 'w': 21, 'n': 121}, u'letter': {'type': 'SDRCategoryEncoder', 'fieldname': 'letter', 'name': 'letter', 'w': 21, 'n': 121}}}, 'inferenceType': 'TemporalMultiStep', 'spParams': {'synPermInactiveDec': 0.005825305994459178}, 'tpParams': {'minThreshold': 9, 'activationThreshold': 12, 'pamLength': 1}, 'clParams': {'alpha': 0.0001}},
 
 }
 

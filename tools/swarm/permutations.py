@@ -93,8 +93,8 @@ report = [
 # used by RunPermutations.
 # NOTE: The value is used as a regular expressions by RunPermutations.py's
 #       report generator
-# (generated from minimize = "multiStepBestPredictions:multiStep:errorMetric='avg_err':steps=\[10\]:window=1000:field=letter")
-minimize = "multiStepBestPredictions:multiStep:errorMetric='avg_err':steps=\[10\]:window=1000:field=letter"
+# (generated from minimize = "multiStepBestPredictions:multiStep:errorMetric='avg_err':steps=\[1, 2, 3, 4, 5, 6, 7, 8, 9, 10\]:window=1000:field=letter")
+minimize = "multiStepBestPredictions:multiStep:errorMetric='avg_err':steps=\[1, 2, 3, 4, 5, 6, 7, 8, 9, 10\]:window=1000:field=letter"
 
 minParticlesPerSwarm = 5
 

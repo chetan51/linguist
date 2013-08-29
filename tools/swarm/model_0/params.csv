@@ -1,2 +1,2 @@
 modelParams|clParams|alpha,modelParams|inferenceType,modelParams|spParams|synPermInactiveDec,modelParams|tpParams|activationThreshold,modelParams|tpParams|minThreshold,modelParams|tpParams|pamLength
-0.0001,TemporalMultiStep,0.005,12,9,1
+0.0001,TemporalMultiStep,0.00582530599446,12,9,1

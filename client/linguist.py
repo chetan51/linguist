@@ -28,9 +28,37 @@
 import sys
 from nupic.frameworks.opf.modelfactory import ModelFactory
 import model_params
+import re
 
 NUM_REPEATS = 1000
 PRINT_EVERY_REPEAT_N = 1
+
+def clean(s):
+  return re.sub('\n', '|', s)
+
+def prediction(inferences):
+  return clean("".join(inferences['multiStepBestPredictions'].values()))
+
+def confidences(inferences):
+  c = ""
+  predictions = inferences['multiStepPredictions']
+  bestPredictions = inferences['multiStepBestPredictions']
+
+  for i in bestPredictions:
+    v = bestPredictions[i]
+    prediction = predictions[i]
+
+    if v in prediction:
+      probability = prediction[v]
+    else:
+      probability = 0
+
+    c += format(probability, ".2f")
+
+    if i < len(bestPredictions):
+      c += " | "
+
+  return c
 
 def createModel():
   return ModelFactory.create(model_params.MODEL_PARAMS)
@@ -62,8 +90,7 @@ def runLinguist(datapath):
         result = model.run(modelInput)
 
         if should_print:
-          prediction = "".join(result.inferences['multiStepBestPredictions'].values())
-          print "[%i]\t %s ==> %s" % (i, modelInput['letter'], prediction)
+          print "[%i]\t %s ==> %s\t(%s)" % (i, clean(modelInput['letter']), prediction(result.inferences), confidences(result.inferences))
 
         i += 1
 

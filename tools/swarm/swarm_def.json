@@ -15,7 +15,7 @@
         "columns": [
           "*"
         ], 
-        "last_record": 100
+        "last_record": 100000
       }
     ]
   }, 
@@ -27,5 +27,5 @@
     "predictedField": "letter"
   }, 
   "iterationCount": -1, 
-  "swarmSize": "small"
+  "swarmSize": "medium"
 }

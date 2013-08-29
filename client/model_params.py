@@ -32,8 +32,8 @@ MODEL_PARAMS = {
     # Intermediate variables used to compute fields in modelParams and also
     # referenced from the control section.
     'aggregationInfo': {   'days': 0,
-        'fields': [('letter', 'sum')],
-        'hours': 1,
+        'fields': [],
+        'hours': 0,
         'microseconds': 0,
         'milliseconds': 0,
         'minutes': 0,
@@ -62,15 +62,22 @@ MODEL_PARAMS = {
             #     ],
             #
             # (value generated from DS_ENCODER_SCHEMA)
-            'encoders': {   'letter': {
-                                   'fieldname': u'letter',
-                                   'n': 100,
-                                   'name': u'letter',
-                                   'type': 'SDRCategoryEncoder',
-                                   'w': 10,
-                                   'categoryList': [' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~']
-                            }
-                        },
+            'encoders': {   
+                '_classifierInput': {
+                    'fieldname': 'letter',
+                    'classifierOnly': True,
+                    'type': 'SDRCategoryEncoder',
+                    'w': 21,
+                    'n': 121
+                },
+                'letter': {
+                       'fieldname': u'letter',
+                       'n': 121,
+                       'name': u'letter',
+                       'type': 'SDRCategoryEncoder',
+                       'w': 21
+                }
+            },
 
             # A dictionary specifying the period for automatically-generated
             # resets from a RecordSensor;
@@ -128,7 +135,7 @@ MODEL_PARAMS = {
 
             'synPermActiveInc': 0.1,
 
-            'synPermInactiveDec': 0.01,
+            'synPermInactiveDec': 0.005825305994459178,
         },
 
         # Controls whether TP is enabled or disabled;
@@ -203,14 +210,14 @@ MODEL_PARAMS = {
             # during search for the best-matching segments.
             # None=use default
             # Replaces: tpMinThreshold
-            'minThreshold': 12,
+            'minThreshold': 9,
 
             # Segment activation threshold.
             # A segment is active if it has >= tpSegmentActivationThreshold
             # connected synapses that are active due to infActiveState
             # None=use default
             # Replaces: tpActivationThreshold
-            'activationThreshold': 16,
+            'activationThreshold': 12,
 
             'outputType': 'normal',
 

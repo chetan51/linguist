@@ -6,16 +6,16 @@
     }
   ], 
   "streamDef": {
-    "info": "ugly_duckling", 
+    "info": "childrens-stories", 
     "version": 1, 
     "streams": [
       {
-        "info": "ugly_duckling.csv", 
-        "source": "file://linguist/ugly_duckling.csv", 
+        "info": "childrens_stories.csv", 
+        "source": "file://linguist/childrens_stories.csv", 
         "columns": [
           "*"
         ], 
-        "last_record": 100000
+        "last_record": 10000
       }
     ]
   }, 
@@ -27,5 +27,5 @@
     "predictedField": "letter"
   }, 
   "iterationCount": -1, 
-  "swarmSize": "medium"
+  "swarmSize": "large"
 }

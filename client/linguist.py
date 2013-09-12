@@ -81,8 +81,8 @@ def runLinguist(datapath):
         c = f.read(1)
         if not c: break
 
-        if ord(c) <= 31 and ord(c) >= 127: continue
-        if last_c == ' ' and c == last_c: continue
+        if ord(c) <= 31 and ord(c) >= 127 and ord(c) != 10: continue
+        if (last_c == ' ' or last_c == '\n') and c == last_c: continue
 
         last_c = c
 

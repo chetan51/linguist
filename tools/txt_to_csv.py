@@ -13,6 +13,7 @@ import re
 def convert(datapath):
     data = file(datapath).read()
     data = re.sub(' +', ' ', data)
+    data = re.sub('\n+', '\n', data)
     N = len(data)
 
     print "letter"
@@ -23,6 +24,8 @@ def convert(datapath):
         c = data[i]
         if ord(c) > 31 and ord(c) < 127:
             print c
+        if ord(c) == 10:
+            print '|'
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

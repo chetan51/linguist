@@ -135,7 +135,9 @@ MODEL_PARAMS = {
 
             'synPermActiveInc': 0.1,
 
-            'synPermInactiveDec': 0.005825305994459178,
+            'synPermInactiveDec': 0.025910586208889513,
+
+            'randomSP': 0,
         },
 
         # Controls whether TP is enabled or disabled;
@@ -217,7 +219,7 @@ MODEL_PARAMS = {
             # connected synapses that are active due to infActiveState
             # None=use default
             # Replaces: tpActivationThreshold
-            'activationThreshold': 12,
+            'activationThreshold': 15,
 
             'outputType': 'normal',
 
@@ -225,7 +227,7 @@ MODEL_PARAMS = {
             # elements to append to the end of a learned sequence at a time.
             # Smaller values are better for datasets with short sequences,
             # higher values are better for datasets with long sequences.
-            'pamLength': 1,
+            'pamLength': 2,
         },
 
         'clParams': {
@@ -237,7 +239,7 @@ MODEL_PARAMS = {
 
             # This controls how fast the classifier learns/forgets. Higher values
             # make it adapt faster and forget older patterns faster.
-            'alpha': 0.0001,
+            'alpha': 0.00080959960713530062,
 
             # This is set after the call to updateConfigFromSubConfig and is
             # computed from the aggregationInfo and predictAheadTime.

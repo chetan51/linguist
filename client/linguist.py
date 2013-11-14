@@ -74,17 +74,12 @@ def runLinguist(datapath):
     if should_print:
       print "\n====== Repeat #%d =======\n" % (r + 1)
 
-    last_c = ''
-
     with open(datapath) as f:
       while True:
         c = f.read(1)
         if not c: break
 
         if not ( (ord(c) >= 31 and ord(c) <= 127) or c == '\n'): continue
-        if (last_c == ' ' or last_c == '\n') and c == last_c: continue
-
-        last_c = c
 
         modelInput = {'letter': c}
         result = model.run(modelInput)

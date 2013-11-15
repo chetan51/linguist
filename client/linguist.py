@@ -84,8 +84,8 @@ def runLinguist(datapath):
 
         modelInput = {'letter': c}
         result = model.run(modelInput)
-        if should_print:
-          print "[%i]\t %s ==> %s\t(%s)" % (i, clean(modelInput['letter']), prediction(result.inferences), confidences(result.inferences))
+        #if should_print:
+          #print "[%i]\t %s ==> %s\t(%s)" % (i, clean(modelInput['letter']), prediction(result.inferences), confidences(result.inferences))
         if c in TERMINATORS:
           model.resetSequenceStates()
           print "reset"
@@ -95,19 +95,21 @@ def runLinguist(datapath):
   return model
 
 def tellStory(model, startSent, lenght):
+
+  model.disableLearning()
   for s in startSent:
-    print(s)
+    print(s),
     modelInput = {'letter': s}
     result = model.run(modelInput)
 
   numSent = 0
   c = s
   while numSent <= lenght:
-    print c
+    print(c),
     modelInput = {'letter': c}
     result = model.run(modelInput)
-    print(result)
-    print(result.inferences)
+    c=result.inferences['prediction'][0]
+
     if c in TERMINATORS:
       numSent += 1
 

@@ -30,8 +30,9 @@ from nupic.frameworks.opf.modelfactory import ModelFactory
 import model_params
 import re
 
-NUM_REPEATS = 1000
+NUM_REPEATS = 1
 PRINT_EVERY_REPEAT_N = 1
+TERMINATORS = ['.','!','?','|']
 
 def clean(s):
   return re.sub('\n', '|', s)
@@ -83,16 +84,39 @@ def runLinguist(datapath):
 
         modelInput = {'letter': c}
         result = model.run(modelInput)
-
         if should_print:
           print "[%i]\t %s ==> %s\t(%s)" % (i, clean(modelInput['letter']), prediction(result.inferences), confidences(result.inferences))
+        if c in TERMINATORS:
+          model.resetSequenceStates()
+          print "reset"
 
         i += 1
+
+  return model
+
+def tellStory(model, startSent, lenght):
+  for s in startSent:
+    print(s)
+    modelInput = {'letter': s}
+    result = model.run(modelInput)
+
+  numSent = 0
+  c = s
+  while numSent <= lenght:
+    print c
+    modelInput = {'letter': c}
+    result = model.run(modelInput)
+    print(result)
+    print(result.inferences)
+    if c in TERMINATORS:
+      numSent += 1
+
 
 
 if __name__ == "__main__":
   if len(sys.argv) > 1:
     datapath = sys.argv[1]
-    runLinguist(datapath)
+    model = runLinguist(datapath)
+    tellStory(model, 'The dog ', 5)
   else:
     print "Usage: python linguist.py [path/to/data.txt]"

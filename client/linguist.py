@@ -126,6 +126,7 @@ def tellStory(model, startSent, lenght):
 
     if c in TERMINATORS:
       numSent += 1
+      sentence_len = 0
       print(' \n')
 
 

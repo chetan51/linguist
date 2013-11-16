@@ -228,7 +228,7 @@ MODEL_PARAMS = {
             # elements to append to the end of a learned sequence at a time.
             # Smaller values are better for datasets with short sequences,
             # higher values are better for datasets with long sequences.
-            'pamLength': 12,
+            'pamLength': 5,
         },
 
         'clParams': {

@@ -32,7 +32,11 @@ import re
 
 NUM_REPEATS = 5
 PRINT_EVERY_REPEAT_N = 1
+
 TERMINATORS = ['.','!','?','|']
+NUM_SENTENSES = 5 # number for story sentenses generated
+STORY_START = "The dog" 
+_QUIT = "QUIT"
 
 def clean(s):
   return re.sub('\n', '|', s)
@@ -95,7 +99,7 @@ def runLinguist(datapath):
   return model
 
 def tellStory(model, startSent, lenght):
- """feed startSent sequence and then continue to generate the story by the CLA. 
+  """feed startSent sequence and then continue to generate the story by the CLA. 
     param model: the trained CLA model
     param startSent: starting sequence as a string, eg \"And so he raised the gun\" 
     param lenght: #sequences to generate. """
@@ -123,6 +127,12 @@ if __name__ == "__main__":
   if len(sys.argv) > 1:
     datapath = sys.argv[1]
     model = runLinguist(datapath)
-    tellStory(model, 'The dog ', 5)
+    print('==========================================')
+    print('Welcome young adventurer, let me tell you a story! ')
+    while True: 
+      STORY_START = raw_input('Enter story start (QUIT to go to work): ')
+      if(STORY_START == "QUIT"): 
+        break
+      tellStory(model, STORY_START, NUM_SENTENSES)
   else:
     print "Usage: python linguist.py [path/to/data.txt]"

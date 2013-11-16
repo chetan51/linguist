@@ -112,11 +112,17 @@ def tellStory(model, startSent, lenght):
 
   numSent = 0
   c = s
+  sentence_len = 0
   while numSent <= lenght:
     print(c),
     modelInput = {'letter': c}
     result = model.run(modelInput)
     c=result.inferences['prediction'][0]
+    
+    sentence_len += 1
+    if(sentence_len > 30): #limit, sometimes there's no sentence terminator generated and we'd run forever
+      numSent += 1
+      sentence_len = 0
 
     if c in TERMINATORS:
       numSent += 1

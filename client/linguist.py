@@ -34,7 +34,7 @@ NUM_REPEATS = 5
 PRINT_EVERY_REPEAT_N = 1
 
 TERMINATORS = ['.','!','?','|']
-NUM_SENTENSES = 5 # number for story sentenses generated
+NUM_SENTENCES = 5 # number for story sentences generated
 STORY_START = "The dog" 
 _QUIT = "QUIT"
 
@@ -126,12 +126,17 @@ def tellStory(model, startSent, lenght):
 
     if c in TERMINATORS:
       numSent += 1
-
+      print(' \n')
 
 
 if __name__ == "__main__":
   if len(sys.argv) > 1:
     datapath = sys.argv[1]
+    if len(sys.argv) > 2:
+      NUM_REPEATS = int(sys.argv[2])
+      if len(sys.argv) > 3:
+        NUM_SENTENCES = int(sys.argv[3])
+
     model = runLinguist(datapath)
     print('==========================================')
     print('Welcome young adventurer, let me tell you a story! ')
@@ -139,6 +144,8 @@ if __name__ == "__main__":
       STORY_START = raw_input('Enter story start (QUIT to go to work): ')
       if(STORY_START == "QUIT"): 
         break
-      tellStory(model, STORY_START, NUM_SENTENSES)
+      tellStory(model, STORY_START, NUM_SENTENCES)
+
+    print('Farewell')
   else:
-    print "Usage: python linguist.py [path/to/data.txt]"
+    print "Usage: python linguist.py path/to/data.txt [num_repeats [num_sentences]]"

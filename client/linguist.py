@@ -30,7 +30,7 @@ from nupic.frameworks.opf.modelfactory import ModelFactory
 import model_params
 import re
 
-NUM_REPEATS = 1
+NUM_REPEATS = 5
 PRINT_EVERY_REPEAT_N = 1
 TERMINATORS = ['.','!','?','|']
 
@@ -84,8 +84,8 @@ def runLinguist(datapath):
 
         modelInput = {'letter': c}
         result = model.run(modelInput)
-        #if should_print:
-          #print "[%i]\t %s ==> %s\t(%s)" % (i, clean(modelInput['letter']), prediction(result.inferences), confidences(result.inferences))
+        if should_print:
+          print "[%i]\t %s ==> %s\t(%s)" % (i, clean(modelInput['letter']), prediction(result.inferences), confidences(result.inferences))
         if c in TERMINATORS:
           model.resetSequenceStates()
           print "reset"
@@ -95,6 +95,10 @@ def runLinguist(datapath):
   return model
 
 def tellStory(model, startSent, lenght):
+ """feed startSent sequence and then continue to generate the story by the CLA. 
+    param model: the trained CLA model
+    param startSent: starting sequence as a string, eg \"And so he raised the gun\" 
+    param lenght: #sequences to generate. """
 
   model.disableLearning()
   for s in startSent:

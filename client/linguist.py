@@ -117,8 +117,8 @@ def tellStory(model, startSent, lenght):
     print(c),
     modelInput = {'letter': c}
     result = model.run(modelInput)
-    c=result.inferences['prediction'][0]
-    
+    c=result.inferences['prediction'][0] # bug in model randomization of same-probability states 
+    #print "c=",c 
     sentence_len += 1
     if(sentence_len > 30): #limit, sometimes there's no sentence terminator generated and we'd run forever
       numSent += 1

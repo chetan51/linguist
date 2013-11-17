@@ -29,6 +29,8 @@ import sys
 from nupic.frameworks.opf.modelfactory import ModelFactory
 import model_params
 import re
+import random
+
 
 NUM_REPEATS = 5
 PRINT_EVERY_REPEAT_N = 1
@@ -120,16 +122,22 @@ def tellStory(model, startSent, lenght):
     c=result.inferences['prediction'][0] # bug in model randomization of same-probability states 
     #print "c=",c 
     sentence_len += 1
-    if(sentence_len > 30): #limit, sometimes there's no sentence terminator generated and we'd run forever
-      numSent += 1
-      sentence_len = 0
-
-    if c in TERMINATORS:
+    if (c in TERMINATORS) or (sentence_len > 30): #limit, sometimes there's no sentence terminator generated and we'd run forever
+      # new sentence
       numSent += 1
       sentence_len = 0
       print(' \n')
+      c = _generateRandomStartingLetter()
 
 
+###################################################################
+def _generateRandomStartingLetter(): 
+  """generates a random starting letter for sequence after the RESET.
+     TODO: add probability based distribution later"""
+  return chr(random.randint(65,90)) # A-Z == chr(65)-chr(90)
+
+
+###################################################################
 if __name__ == "__main__":
   if len(sys.argv) > 1:
     datapath = sys.argv[1]

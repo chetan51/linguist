@@ -30,8 +30,13 @@ from nupic.frameworks.opf.modelfactory import ModelFactory
 import model_params
 import re
 
-NUM_REPEATS = 1000
+NUM_REPEATS = 5
 PRINT_EVERY_REPEAT_N = 1
+
+TERMINATORS = ['.','!','?','|']
+NUM_SENTENCES = 5 # number for story sentences generated
+STORY_START = "The dog" 
+_QUIT = "QUIT"
 
 def clean(s):
   return re.sub('\n', '|', s)
@@ -74,30 +79,74 @@ def runLinguist(datapath):
     if should_print:
       print "\n====== Repeat #%d =======\n" % (r + 1)
 
-    last_c = ''
-
     with open(datapath) as f:
       while True:
         c = f.read(1)
         if not c: break
 
-        if ord(c) <= 31 and ord(c) >= 127 and ord(c) != 10: continue
-        if (last_c == ' ' or last_c == '\n') and c == last_c: continue
-
-        last_c = c
+        if not ( (ord(c) >= 31 and ord(c) <= 127) or c == '\n'): continue
 
         modelInput = {'letter': c}
         result = model.run(modelInput)
-
         if should_print:
           print "[%i]\t %s ==> %s\t(%s)" % (i, clean(modelInput['letter']), prediction(result.inferences), confidences(result.inferences))
+        if c in TERMINATORS:
+          model.resetSequenceStates()
+          print "reset"
 
         i += 1
+
+  return model
+
+def tellStory(model, startSent, lenght):
+  """feed startSent sequence and then continue to generate the story by the CLA. 
+    param model: the trained CLA model
+    param startSent: starting sequence as a string, eg \"And so he raised the gun\" 
+    param lenght: #sequences to generate. """
+
+  model.disableLearning()
+  for s in startSent:
+    print(s),
+    modelInput = {'letter': s}
+    result = model.run(modelInput)
+
+  numSent = 0
+  c = s
+  sentence_len = 0
+  while numSent <= lenght:
+    print(c),
+    modelInput = {'letter': c}
+    result = model.run(modelInput)
+    c=result.inferences['prediction'][0]
+    
+    sentence_len += 1
+    if(sentence_len > 30): #limit, sometimes there's no sentence terminator generated and we'd run forever
+      numSent += 1
+      sentence_len = 0
+
+    if c in TERMINATORS:
+      numSent += 1
+      sentence_len = 0
+      print(' \n')
 
 
 if __name__ == "__main__":
   if len(sys.argv) > 1:
     datapath = sys.argv[1]
-    runLinguist(datapath)
+    if len(sys.argv) > 2:
+      NUM_REPEATS = int(sys.argv[2])
+      if len(sys.argv) > 3:
+        NUM_SENTENCES = int(sys.argv[3])
+
+    model = runLinguist(datapath)
+    print('==========================================')
+    print('Welcome young adventurer, let me tell you a story! ')
+    while True: 
+      STORY_START = raw_input('Enter story start (QUIT to go to work): ')
+      if(STORY_START == "QUIT"): 
+        break
+      tellStory(model, STORY_START, NUM_SENTENCES)
+
+    print('Farewell')
   else:
-    print "Usage: python linguist.py [path/to/data.txt]"
+    print "Usage: python linguist.py path/to/data.txt [num_repeats [num_sentences]]"

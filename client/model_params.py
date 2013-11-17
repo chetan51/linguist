@@ -131,13 +131,14 @@ MODEL_PARAMS = {
             # threshold set below this default value.
             # (This concept applies to both SP and TP and so 'cells'
             # is correct here as opposed to 'columns')
-            'synPermConnected': 0.1,
+            'synPermConnected': 0.2,
 
             'synPermActiveInc': 0.1,
 
-            'synPermInactiveDec': 0.025910586208889513,
+            'synPermInactiveDec': 0.1,
 
             'randomSP': 0,
+            'spatialImp': 'cpp',
         },
 
         # Controls whether TP is enabled or disabled;
@@ -158,7 +159,7 @@ MODEL_PARAMS = {
             'columnCount': 2048,
 
             # The number of cells (i.e., states), allocated per column.
-            'cellsPerColumn': 32,
+            'cellsPerColumn': 8,
 
             'inputWidth': 2048,
 
@@ -227,7 +228,7 @@ MODEL_PARAMS = {
             # elements to append to the end of a learned sequence at a time.
             # Smaller values are better for datasets with short sequences,
             # higher values are better for datasets with long sequences.
-            'pamLength': 2,
+            'pamLength': 5,
         },
 
         'clParams': {
@@ -239,13 +240,14 @@ MODEL_PARAMS = {
 
             # This controls how fast the classifier learns/forgets. Higher values
             # make it adapt faster and forget older patterns faster.
-            'alpha': 0.00080959960713530062,
+            'alpha': 0.01080959960713530062,
 
             # This is set after the call to updateConfigFromSubConfig and is
             # computed from the aggregationInfo and predictAheadTime.
-            'steps': '1,2,3,4,5,6,7,8,9,10',
+            #'steps': '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16',
+            'steps': '1,2,3,4,5',
         },
 
-        'trainSPNetOnlyIfRequested': False,
+        'trainSPNetOnlyIfRequested': True,
     },
 }

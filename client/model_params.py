@@ -228,7 +228,7 @@ MODEL_PARAMS = {
             # elements to append to the end of a learned sequence at a time.
             # Smaller values are better for datasets with short sequences,
             # higher values are better for datasets with long sequences.
-            'pamLength': 5,
+            'pamLength': 6,
         },
 
         'clParams': {
@@ -240,7 +240,7 @@ MODEL_PARAMS = {
 
             # This controls how fast the classifier learns/forgets. Higher values
             # make it adapt faster and forget older patterns faster.
-            'alpha': 0.01080959960713530062,
+            'alpha': 0.001080959960713530062,
 
             # This is set after the call to updateConfigFromSubConfig and is
             # computed from the aggregationInfo and predictAheadTime.
@@ -248,6 +248,6 @@ MODEL_PARAMS = {
             'steps': '1,2,3,4,5',
         },
 
-        'trainSPNetOnlyIfRequested': True,
+        'trainSPNetOnlyIfRequested': False,
     },
 }

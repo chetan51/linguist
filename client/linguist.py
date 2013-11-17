@@ -33,7 +33,7 @@ import re
 NUM_REPEATS = 5
 PRINT_EVERY_REPEAT_N = 1
 
-TERMINATORS = ['.','!','?','|']
+TERMINATORS = ['.','!','?','|','\n']
 NUM_SENTENCES = 5 # number for story sentences generated
 STORY_START = "The dog" 
 _QUIT = "QUIT"

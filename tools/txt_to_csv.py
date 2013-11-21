@@ -7,7 +7,6 @@
 """A tool to convert text into csv format for Linguist."""
 
 import sys
-import sys
 import re
 
 def convert(datapath):

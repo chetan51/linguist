@@ -100,11 +100,11 @@ def runLinguist(datapath):
 
   return model
 
-def tellStory(model, startSent, lenght):
+def tellStory(model, startSent, length):
   """feed startSent sequence and then continue to generate the story by the CLA. 
     param model: the trained CLA model
     param startSent: starting sequence as a string, eg \"And so he raised the gun\" 
-    param lenght: #sequences to generate. """
+    param length: #sequences to generate. """
 
   model.disableLearning()
   for s in startSent:
@@ -115,7 +115,7 @@ def tellStory(model, startSent, lenght):
   numSent = 0
   c = s
   sentence_len = 0
-  while numSent <= lenght:
+  while numSent <= length:
     print(c),
     modelInput = {'letter': c}
     result = model.run(modelInput)

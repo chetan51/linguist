@@ -112,7 +112,7 @@ MODEL_PARAMS = {
             # SP inhibition control (absolute value);
             # Maximum number of active columns in the SP region's output (when
             # there are more, the weaker ones are suppressed)
-            'numActivePerInhArea': 40,
+           ## 'numActivePerInhArea': 40,
 
             'seed': 1956,
 
@@ -120,7 +120,6 @@ MODEL_PARAMS = {
             # What percent of the columns's receptive field is available
             # for potential synapses. At initialization time, we will
             # choose coincInputPoolPct * (2*coincInputRadius+1)^2
-            'coincInputPoolPct': 0.5,
 
             # The default connected threshold. Any synapse whose
             # permanence value is above the connected threshold is
@@ -137,7 +136,6 @@ MODEL_PARAMS = {
 
             'synPermInactiveDec': 0.1,
 
-            'randomSP': 0,
             'spatialImp': 'cpp',
         },
 
